@@ -1,3 +1,4 @@
+
 var express = require("express"),
 app     = express(),
 mongoose = require("mongoose"),
@@ -27,18 +28,16 @@ app.get("/todos", function(req, res){
     if(err){
       console.log(err);
     } else {
-        if(req.xhr){
-            res.json(todos);
-        }else{
-             res.render("index", {todos: todos}); 
-        }
-       
+      if(req.xhr) {
+        res.json(todos);
+      } else {
+        res.render("index", {todos: todos}); 
+      }
     }
   })
 });
 
 app.get("/todos/new", function(req, res){
-    
  res.render("new"); 
 });
 
@@ -49,12 +48,7 @@ app.post("/todos", function(req, res){
     if(err){
       res.render("new");
     } else {
-        if(req.xhr){
-            res.json(newTodo);
-        }else{
-            res.redirect("/todos");
-        }
-        
+      res.json(newTodo);
     }
   });
 });
@@ -75,12 +69,11 @@ app.put("/todos/:id", function(req, res){
    if(err){
      console.log(err);
    } else {
-      if(req.xhr){
-         res.json(todo);
-      }else{
-         res.redirect('/');
-      }
-     
+      //if(req.xhr) {
+        res.json(todo);
+      //} else {
+        //res.redirect('/');
+      //}
    }
  });
 });
@@ -90,15 +83,15 @@ app.delete("/todos/:id", function(req, res){
    if(err){
      console.log(err);
    } else {
-      if(req.xhr){
-          res.json(todo);
-      }else{
-          res.redirect("/todos");
+      if (req.xhr) {
+        res.json(todo);
+      } else {
+        res.redirect("/todos");
       }
-      
    }
  }); 
 });
+
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("The server has started!");
